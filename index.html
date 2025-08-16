@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Aliftzy Module × Adam Music Player</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Courier New', monospace;
+      background-color: black;
+      color: white;
+      text-align: center;
+      min-height: 100vh;
+    }
+    .background-video {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+    .container { width: 100%; padding-bottom: 120px; }
+    .profile-video {
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-top: 80px;
+      border: 5px solid #FFA500;
+    }
+    .bio-link {
+      background: none;
+      padding: 10px 15px;
+      margin: 10px 0;
+      border-radius: 12px;
+      color: #00BFFF;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .main-title {
+      font-size: 48px;
+      color: #FFA500;
+      margin: 24px 0;
+      font-weight: bold;
+    }
+    .player-box {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 30px;
+      width: 100%;
+    }
+    .track-card {
+      background: rgba(255,255,255,0.08);
+      border: 2px solid #00BFFF;
+      border-radius: 16px;
+      padding: 20px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: center;
+      font-size: 20px;
+      color: #00BFFF;
+      font-weight: bold;
+    }
+    .track-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 14px rgba(255,255,255,0.3);
+    }
+    .control-buttons {
+      margin-top: 10px;
+    }
+    .toggle-button {
+      font-size: 20px;
+      padding: 14px 36px;
+      background-color: transparent;
+      border: 2px solid #00BFFF;
+      border-radius: 12px;
+      color: #00BFFF;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .toggle-button:hover {
+      background-color: #FFA500;
+      color: black;
+    }
+    .toggle-theme {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      color: var(--subtext-color);
+      cursor: pointer;
+    }
+    .typing-message {
+      width: 90%;
+      max-width: 900px;
+      margin: 40px auto;
+      font-size: 18px;
+      color: white;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid white;
+      animation: typing 14s steps(150, end) forwards, blink 0.9s step-end infinite;
+      display: none;
+    }
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+    .footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      background: transparent;
+      color: #00BFFF;
+    }
+    .footer h2 {
+      margin: 16px 0;
+      font-size: 28px;
+      opacity: 0.9;
+    }
+    @media (max-width: 768px) {
+      .profile-video {
+        width: 220px;
+        height: 220px;
+        margin-top: 40px;
+      }
+      .main-title { font-size: 32px; }
+      .track-card { font-size: 18px; }
+      .toggle-button { font-size: 18px; padding: 12px 24px; }
+      .footer h2 { font-size: 20px; }
+      .typing-message { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <video class="background-video" autoplay muted loop>
+    <source src="https://files.catbox.moe/3pgux4.mp4" type="video/mp4">
+  </video>
+
+  <div class="container">
+    <button class="toggle-theme" onclick="toggleTheme()">🪐</button>
+    <video class="profile-video" autoplay muted loop>
+      <source src="https://file.garden/aJzMAjrHVB4BLKPo/NEW%20POST%20%F0%9F%94%A5%20BREWOG%20AUDIO%20KARNAFAL%20SIDOMULYO%20BATU%20(ANIMASI%20SOUND%20SISTEM%20BREWOG)%20brewogaudio.mp4" type="video/mp4">
+    </video>
+
+    <div class="main-title">Aliftzy Module × Adam Music Player</div>
+    
+    <a class="bio-link" href="https://wa.me/6289514677652" target="_blank">Send Request 💬</a>
+
+    <div class="player-box">
+      <div class="track-card" onclick="playTrack(1)">Dj Andalan Brewog - Team 4</div>
+      <div class="track-card" onclick="playTrack(2)">Dj Velocity × Barudak Phonk</div>
+      <div class="track-card" onclick="playTrack(3)">Dj Thank You - Protons Music</div>
+      <div class="track-card" onclick="playTrack(4)">Dj In The Floor × Takutu</div>
+      <div class="track-card" onclick="playTrack(5)">Dj Paradise - X One Project</div>
+      <div class="track-card" onclick="playTrack(6)">Dj Skyfall - Middle Nulup</div>
+      <div class="track-card" onclick="playTrack(7)">Dj Bukit Berbunga - Style Karnaval</div>
+      <div class="track-card" onclick="playTrack(8)">Dj Pepas - Bangsay Offc</div>
+      <div class="track-card" onclick="playTrack(9)">Dj Gulu Pedot - Style Karnaval</div>
+      <div class="track-card" onclick="playTrack(10)">Dj Mashup - Style Karnaval</div>
+      <div class="track-card" onclick="playTrack(11)">Dj Aku Iki Tukang Tambal Ban - Mid Nrotok</div>
+      <div class="track-card" onclick="playTrack(12)">Dj Cartel - Style Karnaval</div>
+      <div class="track-card" onclick="playTrack(13)">Dj Baby Dont Go - Style Karnaval</div>
+      <div class="track-card" onclick="playTrack(14)">Dj Trap Pujaningsih - Simpatik Style</div>
+      <div class="track-card" onclick="playTrack(15)">Dj Mysterious Girl - Petrok 96</div>
+      <div class="track-card" onclick="playTrack(16)">Dj Kamnh - Melody Terompet</div>
+      <div class="track-card" onclick="playTrack(17)">Dj Preman Pensiun - Style Karnaval</div>
+      <div class="track-card" onclick="playTrack(18)">Dj Одного - Style Karnaval</div>
+      <div class="track-card" onclick="playTrack(19)">Dj RARKJS - Trap Party</div>
+      <div class="track-card" onclick="playTrack(20)">Dj Sinpijama - Trap Party</div>
+      <div class="track-card" onclick="playTrack(21)">Dj Gemu Fa Mire - Riswanda</div>
+      <div class="track-card" onclick="playTrack(22)">Dj Gank Dolly - MHO</div>
+      <div class="track-card" onclick="playTrack(23)">Dj Mumbo Jumbo - Style Karnaval</div>
+      <div class="track-card" onclick="playTrack(24)">Dj Layla Semanis - Trap Party</div>
+      <div class="track-card" onclick="playTrack(25)">Dj Aku Cah Kerjo - Simpatik Style</div>
+      <div class="track-card" onclick="playTrack(26)">Dj Twenty Pilots - SMP</div>
+      <div class="track-card" onclick="playTrack(27)">Dj Bongkar - AD Garage</div>
+      <div class="track-card" onclick="playTrack(28)">Dj Trap Odong Odong - DJP</div>
+      <div class="track-card" onclick="playTrack(29)">Dj Selamat Jalan - Dikaal Rvltn</div>
+      <div class="track-card" onclick="playTrack(30)">Dj Panda - Nova Rvltn</div>
+    </div>
+
+    <div class="control-buttons">
+      <button class="toggle-button" onclick="stopAll()" id="toggleBtn">Stop</button>
+      <br><br>
+      <label for="volumeSlider">Volume:</label>
+      <input type="range" id="volumeSlider" min="0" max="1" step="0.001" value="0.5">
+    </div>
+
+    <div class="typing-message" id="message">
+      Halo, Saya Website Yang Ditugaskan Membantu Kalian Dalam Penyetelan Music Secara Gratis, Anti-Iklan, serta Bisa Diputar Dilatar Belakang. Jika Anda Ingin Request Dj Yang Dipasang Selanjutnya Silahkan Request Dengan Cara Mengirim Pesan Dibagian "Send Request".
+    </div>
+  </div>
+
+  <div class="footer"><h2>©Aliftzy × Adam</h2></div>
+
+  <!-- Audio Elements -->
+  <audio id="track1" src="https://file.garden/aJzMAjrHVB4BLKPo/JINGLE%20BREWOG%20TIM%204%20%E2%80%A2%20THE%20DOCTOR%20TJAP%20JOTOS%20-%20BASS%20BEDIL%20AK%2047.mp3"></audio>
+  <audio id="track2" src="https://file.garden/aJzMAjrHVB4BLKPo/DJ%20VELOCITY%20BARUDAK%20PHONK%20-%20STYLE%20ASEK%20ASEK%20MIDDLE%20NROTOK%20FHAMS%20REVOLUTION.mp3"></audio>
+  <audio id="track3" src="https://file.garden/aJzMAjrHVB4BLKPo/DJ%20THANK%20YOU%20MIDLE%20TOBRUT%20NULOP2%20YANG%20BANYAK%20ORANG%20DI%20CARI%20CARI%20FYP%20DI%20TIKTOK.mp3"></audio>
+  <audio id="track4" src="https://file.garden/aJzMAjrHVB4BLKPo/DJ%20MELODY%20DANCE%20FLOOR%20THAILAND%20X%20SAE%20SAE%20TAKUTU%20DJ%20DANCE%20VELOCITY%20VIRAL%20TIK%20TOK%20YANG%20KALIAN%20CARI!!.mp3"></audio>
+  <audio id="track5" src="https://file.garden/aJzMAjrHVB4BLKPo/DJ%20PARADISE%20X%20ONE%20PROJECT%20YANG%20LAGI%20VIRAL%20SEDUNIA%E2%80%BC%EF%B8%8F.mp3"></audio>
+  <audio id="track6" src="https://file.garden/aJzMAjrHVB4BLKPo/DJ%20BEDIL%20AK%2047%20SKYFALL%20mp%20audio%20x%2069%20project.mp3"></audio>
+  <audio id="track7" src="https://file.garden/aJzMAjrHVB4BLKPo/DJ%20BUKIT%20BERBUNGA%20TJAP%20TASSO%E2%80%BC%EF%B8%8FSTYLE%20CETAS%20CETUS%20SPESIAL%2017%20AGUSTUS%F0%9F%87%AE%F0%9F%87%A9HARI%20KEMERDEKAAN%20VIRAL%20%E2%80%BC%EF%B8%8F.mp3"></audio>
+  <audio id="track8" src="https://file.garden/aJzMAjrHVB4BLKPo/PEPAS%20REMIX%20FYP%20TIKTOK%20BANGSAY%20FIKRI%20FUNDURACTION.mp3"></audio>
+  <audio id="track9" src="https://file.garden/aJzMAjrHVB4BLKPo/DJ%20GULU%20PEDOT%20FYP%20TIKTOK%20%E2%80%BC%EF%B8%8FASEK-ASEK%20PARTY%20KARNAVAL%20MCSB%20PRODUCTION.mp3"></audio>
+  <audio id="track10" src="https://file.garden/aJzMAjrHVB4BLKPo/DJ%20MASHUP%20VIRAL%202025!!%20STYLE%20PARTY%20KARNAVAL%20GAYENG%20ASEK%C2%B2BASS%20NGANTEM%20%E2%80%A2%20BS%20REVOLUTION%20%E2%80%A2.mp3"></audio>
+  <audio id="track11" src="https://file.garden/aJzMAjrHVB4BLKPo/DJ%20TAMBAL%20BAN%20NROTOK%20YANG%20KALIAN%20CARI%20CARI.mp3"></audio>
+  <audio id="track12" src="https://file.garden/aJzMAjrHVB4BLKPo/DJ%20Nanda%20Audio%20Jember%20Cartel%20Vt%20Rio%20Denka.mp3"></audio>
+  <audio id="track13" src="https://file.garden/aJzMAjrHVB4BLKPo/DJ%20BABY%20DON'T%20GO%20MELODY%20TEMBAK%20LANGIT%20REZA%20ARAP%20X%20ARIA%20%E2%80%A2%20JARANAN%20DOR%20X%20THAILAND%20ALFIN%20REVOLUTION.mp3"></audio>
+  <audio id="track14" src="https://file.garden/aJzMAjrHVB4BLKPo/TRAP%20PUJANINGSIH%20VERSI%20SIMPATIK%20%E2%80%A2%20FUL%20BASS%20PANJANG.mp3"></audio>
+  <audio id="track15" src="https://file.garden/aJzMAjrHVB4BLKPo/DJ%20MYSTERIOUS%20GIRL%20X%20TABOLA%20BALE%20X%20CALON%20MANTU%20IDAMAN%20TERBARU%20VIRAL%20KARNAVAL.mp3"></audio>
+  <audio id="track16" src="https://file.garden/aJzMAjrHVB4BLKPo/DJ%20KAMNH%20VIRAL%20TIKTOK%E2%80%BC%EF%B8%8FMELODY%20TROMPET%20X%20SQUID%20GAME%20FULL%20BASS%20PARTY%20HOREG%20MENGKANE%20-%20ARMUSICOFFICIAL.mp3"></audio>
+  <audio id="track17" src="https://file.garden/aJzMAjrHVB4BLKPo/DJ%20PREMAN%20PENSIUN%20V2%20BREWOG%20AUDIO%20FT%20PEMUDA%20OSPEG%20-%20HOREG%20CLARITY%20ABIEZZZ%20!!.mp3"></audio>
+  <audio id="track18" src="https://file.garden/aJzMAjrHVB4BLKPo/DJ%20LEGENDARIS%20X%20OAHORO%20FULL%20BASS%20PARTY%20MENGKANE%20MELODY%20VIRAL%20TIKTOK%E2%80%BC%EF%B8%8FO%D0%94HORO%20TERBARU%20ARMUSICOFFICIAL.mp3"></audio>
+  <audio id="track19" src="https://file.garden/aJzMAjrHVB4BLKPo/DJ%20RINDU%20AKU%20RINDU%20KAMU%20JADI%20SATU%20VIRAL%20TIKTOK%20STYLE%20TRAP%20PARTY%20-%20BY%20TSSB%20PRODUCTION.mp3"></audio>
+  <audio id="track20" src="https://file.garden/aJzMAjrHVB4BLKPo/DJ%20SIN%20PIJAMA%20STYLE%20PARTY%20MARGOY%20MENGKANE%20BASS%20NGUK%20VIRAL%20TIKTOK%20TREND%20KARNAVAL%20-%20ARMUSICOFFICIAL.mp3"></audio>
+  <audio id="track21" src="https://file.garden/aJzMAjrHVB4BLKPo/DJ%20SENAM%20GEMUFAMIRE%20RISWANDA%20%26%20PASUKAN%20BUMBER%20Bumirejo%20By%20Ary%20Wardana%20Production.mp3"></audio>
+  <audio id="track22" src="https://file.garden/aJzMAjrHVB4BLKPo/DJ%20GANG%20DOLLY%20STLYE%20BASS%20TOBRUT%20MIDDLE%20NROTOK%20BRUTAL%20NEW%20VIRAL%20TERBARU!!!!.mp3"></audio>
+  <audio id="track23" src="https://file.garden/aJzMAjrHVB4BLKPo/DJ%20PARTY%20MAMBO%20JAMBO%20X%20MBEROT%20-%20DIDIK%20JANGKRIK%20PROJECT%20%26%20ZAIN%20PROJECT%20Z.mp3"></audio>
+  <audio id="track24" src="https://file.garden/aJzMAjrHVB4BLKPo/DJ%20LAYLA%20SEMANIS%20TRAP%20PARTY%20X%20MIDLE%20NGEPLAK%20STYLE%20GUFF%20RMX%20PRDCTN%20%E2%80%BC%EF%B8%8F.mp3"></audio>
+  <audio id="track25" src="https://file.garden/aJzMAjrHVB4BLKPo/DJ%20SIMPATIK%20AKU%20CAH%20KERJO%20ALIF%20REMIX%20REBORN.mp3"></audio>
+  <audio id="track26" src="https://file.garden/aJzMAjrHVB4BLKPo/DJ%20TRAP%20BASS%20BLAYER%20TWENTY%20PILOT%20YANG%20DINANTI%20%E2%9D%97%E2%9D%97%20SEMBILAN%20PRODUCTION.mp3"></audio>
+  <audio id="track27" src="https://file.garden/aJzMAjrHVB4BLKPo/DJ%20CEK%20SOUND%20BONGKAR%20VIRAL%202K25%20%E2%80%BC%EF%B8%8F%20TRAP%20MIDDLE%20HOROR%20%E2%80%A2%20AD%20GARAGE%20PRODUCTION%20%F0%9F%94%A5.mp3"></audio>
+  <audio id="track28" src="https://file.garden/aJzMAjrHVB4BLKPo/DJ%20TRAP%20ODONG%20ODONG%20MIDEL%20KRAK%20KRAK%20KRAK%20PENGHANCUR%20SPEAKER%20RISKI%20IRVAN%20NANDA%20DIDIK%20JANGKRIK.mp3"></audio>
+  <audio id="track29" src="https://file.garden/aJzMAjrHVB4BLKPo/DJ%20TRAP%20BEDIL%20MIDDLE%20KRUEK%20KRUEK%20BASSS%20NGUK%20NGUK%20SELAMAT%20JALAN%20AMUNISI%20BETTLE.mp3"></audio>
+  <audio id="track30" src="https://file.garden/aJzMAjrHVB4BLKPo/DJ%20PANDA%20VIRAL%20-%20AN%20ANGEL%20LOVE%20X%20ARIA%20X%20BHABI%20FULL%20VERSION.mp3"></audio>
+
+  <script>
+    function playTrack(n) {
+      for (let i = 1; i <= 30; i++) {
+        document.getElementById('track' + i).pause();
+        document.getElementById('track' + i).currentTime = 0;
+        document.querySelectorAll('.track-card')[i - 1].classList.remove('active-track');
+      }
+      document.getElementById('track' + n).play();
+      document.querySelectorAll('.track-card')[n - 1].classList.add('active-track');
+
+      const message = document.getElementById('message');
+      if (message.style.display === 'none') {
+        message.style.display = 'block';
+      }
+    }
+
+    function stopAll() {
+      for (let i = 1; i <= 30; i++) {
+        document.getElementById('track' + i).pause();
+        document.getElementById('track' + i).currentTime = 0;
+        document.querySelectorAll('.track-card')[i - 1].classList.remove('active-track');
+      }
+    }
+
+    // =========================
+    // Kontrol Volume (tetap play saat 0)
+    // =========================
+    const volumeSlider = document.getElementById('volumeSlider');
+
+    // Set volume awal untuk semua track
+    for (let i = 1; i <= 100; i++) {
+      const track = document.getElementById('track' + i);
+      if (track) track.volume = volumeSlider.value;
+    }
+
+    // Saat slider digeser, update volume semua track
+    volumeSlider.addEventListener('input', function () {
+      for (let i = 1; i <= 30; i++) {
+        const track = document.getElementById('track' + i);
+        if (track) track.volume = this.value;  // 0 = senyap, tapi track tetap play
+      }
+    });
+  </script>
+</body>
+</html>
